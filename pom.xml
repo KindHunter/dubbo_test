@@ -40,6 +40,11 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <redisson-config.version>3.11.2</redisson-config.version>
+        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <brave-instrumentation.version>5.8.0</brave-instrumentation.version>
+        <rocketmq-springboot-starter.version>2.0.3</rocketmq-springboot-starter.version>
+        <rocketmq-client.version>4.6.1</rocketmq-client.version>
+
     </properties>
 
     <!-- 依赖管理，版本控制 -->
@@ -116,7 +121,63 @@
                 <version>${redisson-config.version}</version>
             </dependency>
 
+            <!-- 持久层框架 Mybatis Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
 
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.SR4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.zipkin.brave/brave-bom -->
+            <dependency>
+                <groupId>io.zipkin.brave</groupId>
+                <artifactId>brave-bom</artifactId>
+                <version>${brave-instrumentation.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-springboot-starter.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-client.version}</version>
+            </dependency>
 
 
         </dependencies>

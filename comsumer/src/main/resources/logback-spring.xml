@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty name="appName" source="spring.application.name"/>
+
+
+
+
+
+    <appender name="dailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>/data/logs/${appName}/${appName}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>365</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) [%X{traceId}]  ${appName} %green([%thread])
+                %highlight(%-5level) %boldMagenta(%logger{35}) - %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="consoleRolling" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %X{traceId}  ${appName} %green([%thread])
+                %highlight(%-5level) %boldMagenta(%logger{35}) - %msg %n
+            </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+
+
+    <root level="INFO">
+        <!--<appender-ref ref="dailyRollingFile"/>-->
+        <appender-ref ref="consoleRolling"/>
+    </root>
+</configuration>

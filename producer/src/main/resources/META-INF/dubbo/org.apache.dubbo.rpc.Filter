@@ -1,0 +1,2 @@
+providerFilter=com.dahuamiao.provider.config.ProviderFilter
+tracingFilter=brave.dubbo.TracingFilter

@@ -1,0 +1,2 @@
+consumerFilter=com.dahuamiao.consumer.cofig.ConsumerFilter
+tracingFilter=brave.dubbo.TracingFilter
