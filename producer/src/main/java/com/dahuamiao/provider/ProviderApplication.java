@@ -19,7 +19,7 @@ import java.util.Map;
  * @create: 2020-03-31 15:54
  **/
 @EnableDubbo
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.dahuamiao.provider")
 @MapperScan("com.dahuamiao.provider.mapper")
 public class ProviderApplication {
     public static void main(String[] args) {

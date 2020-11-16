@@ -1,26 +1,14 @@
-package com.dahuamiao.consumer.mq.producer;
+package com.dahuamiao.consumer.rocketmq;
 
-import brave.Span;
-import brave.propagation.ThreadLocalSpan;
-import com.alibaba.fastjson.JSON;
-import org.apache.rocketmq.client.hook.SendMessageContext;
-import org.apache.rocketmq.client.hook.SendMessageHook;
+import com.google.gson.Gson;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
-import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static brave.Span.Kind.CLIENT;
 
 /**
  * @Author: WangJun
@@ -37,37 +25,6 @@ public class MessageProducer {
     private RocketMQTemplate rocketMQTemplate;
 
 
-    @PostConstruct
-    public void setSendHook(){
-        rocketMQTemplate.getProducer().getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageHook() {
-
-
-            @Override
-            public String hookName() {
-                return "beforeSendHooker";
-            }
-
-            @Override
-            public void sendMessageBefore(SendMessageContext context) {
-                Message message = context.getMessage();
-                Map<String, String> properties = message.getProperties();
-                properties.put("myKey", "myValue");
-                properties.put("sendBeforeTime", String.valueOf(new Date().getTime()));
-                System.out.println("coming in sendHook! before");
-            }
-
-            @Override
-            public void sendMessageAfter(SendMessageContext context) {
-                Message message = context.getMessage();
-                Map<String, String> properties = message.getProperties();
-                properties.put("sendBeforeAfter", String.valueOf(new Date().getTime()));
-                System.out.println("coming in sendHook! after");
-
-            }
-        });
-    }
-
-
     /**
      * 发送消息（异步发送，mq服务器收到消息并响应，就可执行下一步）
      * <p>
@@ -77,7 +34,7 @@ public class MessageProducer {
      * @param data
      */
     public void sendAsyncMsg(String topic, String tag, Object data) {
-        log.info("MessageProducer.sendAsyncMsg，topic:{},tag:{},data:{}", topic, tag, JSON.toJSONString(data));
+        log.info("MessageProducer.sendAsyncMsg，topic:{},tag:{},data:{}", topic, tag, new Gson().toJson(data));
         this.rocketMQTemplate.asyncSend(topic + ":" + tag, data, new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
@@ -115,7 +72,7 @@ public class MessageProducer {
      * 可靠同步发送
      */
     public boolean sendSyncMsg(String topic, String tag, Object data) {
-        log.info("MessageProducer.sendSyncMsg，topic:{},tag:{},data:{}", topic, tag, JSON.toJSONString(data));
+        log.info("MessageProducer.sendSyncMsg，topic:{},tag:{},data:{}", topic, tag, new Gson().toJson(data));
         SendResult result = this.rocketMQTemplate.syncSend(topic + ":" + tag, data);
         if (result.getSendStatus() == SendStatus.SEND_OK) {
             log.info("MessageProducer.sendSyncMsg发送消息成功，msgId：【{}】", result.getMsgId());
@@ -133,7 +90,7 @@ public class MessageProducer {
      * 单向发送
      */
     public void sendOneWayMsg(String topic, String tag, Object data) {
-        log.info("MessageProducer.sendOneWayMsg，topic:{},tag:{},data:{}", topic, tag, JSON.toJSONString(data));
+        log.info("MessageProducer.sendOneWayMsg，topic:{},tag:{},data:{}", topic, tag, new Gson().toJson(data));
         this.rocketMQTemplate.sendOneWay(topic + ":" + tag, data);
     }
 
@@ -143,7 +100,7 @@ public class MessageProducer {
      */
     public void asyncSendOrderly(String topic, String tag, Object data, String hashKey) {
         log.info("MessageProducer.asyncSendOrderly，topic:{},tag:{},data:{},hashKey:{}", topic, tag,
-                JSON.toJSONString(data), hashKey);
+                new Gson().toJson(data), hashKey);
         this.rocketMQTemplate.asyncSendOrderly(topic + ":" + tag, data, hashKey, new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {

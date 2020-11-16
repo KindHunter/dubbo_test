@@ -1,7 +1,8 @@
 package com.dahuamiao.consumer.controller;
 
+import com.dahuamiao.api.Constants;
 import com.dahuamiao.api.DubboApi;
-import com.dahuamiao.consumer.mq.producer.MessageProducer;
+import com.dahuamiao.consumer.rocketmq.MessageProducer;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,11 @@ public class DubboController {
 
     Logger log = LoggerFactory.getLogger(DubboController.class);
 
-    @Reference(timeout = 1000 * 100)
-    DubboApi dubboApi;
-
     @Autowired
     MessageProducer messageProducer;
 
+    @Reference
+    DubboApi dubboApi;
 
 
     @GetMapping("getMessage")
@@ -42,9 +42,15 @@ public class DubboController {
     }
 
 
-    @GetMapping("sendMessage")
-    public String sendMessage(String msg){
-        messageProducer.sendAsyncMsg("testTopicOne", "group", msg);
-        return "ok";
+    @GetMapping("addUser")
+    public void addUser(String name, String password){
+        dubboApi.addUser(name, password);
     }
+
+
+    @GetMapping("sendMsg")
+    public void sendMsg(){
+        messageProducer.sendAsyncMsg(Constants.TOPIC, Constants.TAG, "my message!");
+    }
+
 }

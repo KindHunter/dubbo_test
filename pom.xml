@@ -34,16 +34,17 @@
         <!-- 依赖版本相关 -->
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <spring.version>5.1.8.RELEASE</spring.version>
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.4.1</dubbo.version>
         <jedis.version>3.0.1</jedis.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <redisson-config.version>3.11.2</redisson-config.version>
         <mybatis-plus.version>3.1.2</mybatis-plus.version>
-        <brave-instrumentation.version>5.8.0</brave-instrumentation.version>
+        <brave-instrumentation.version>5.9.0</brave-instrumentation.version>
         <rocketmq-springboot-starter.version>2.0.3</rocketmq-springboot-starter.version>
         <rocketmq-client.version>4.6.1</rocketmq-client.version>
+        <spring-data-mongodb.version>2.1.3.RELEASE</spring-data-mongodb.version>
 
     </properties>
 
@@ -177,6 +178,12 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq-client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb</artifactId>
+                <version>${spring-data-mongodb.version}</version>
             </dependency>
 
 
