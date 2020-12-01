@@ -12,6 +12,7 @@
         <module>comsumer</module>
         <module>producer</module>
         <module>api</module>
+        <module>httpend</module>
     </modules>
 
     <!-- springboot parent -->
