@@ -34,7 +34,7 @@
         <!-- 依赖版本相关 -->
         <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <spring.version>5.1.8.RELEASE</spring.version>
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.15</dubbo.version>
         <jedis.version>3.0.1</jedis.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-lang3.version>3.9</commons-lang3.version>
